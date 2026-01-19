@@ -1,0 +1,32 @@
+Sample Document
+================
+
+This is a sample document that demonstrates the Pages Creator system.
+
+Introduction
+------------
+
+The Pages Creator is designed to take input information and create native Apple Pages (.pages) documents instead of traditional text or RTF files.
+
+Key Features
+------------
+
+- Cross-platform compatibility
+- Multiple input formats supported
+- Native Pages document creation
+- Template-based customization
+- AppleScript automation on macOS
+
+Technical Details
+-----------------
+
+The system uses a hybrid approach:
+
+1. AppleScript automation when Pages app is available
+2. Template modification for cross-platform support
+3. Automatic method selection based on environment
+
+Conclusion
+----------
+
+This provides a powerful way to programmatically create Pages documents from various data sources.

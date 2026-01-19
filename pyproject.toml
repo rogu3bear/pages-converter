@@ -1,0 +1,18 @@
+[project]
+name = "pages-creator"
+version = "0.1.0"
+description = "A system for programmatically creating Apple Pages documents"
+authors = [{name = "Pages Creator Team"}]
+readme = "README.md"
+requires-python = ">=3.7"
+dependencies = [
+    "markdown>=3.4.4",
+    "python-docx>=1.1.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = []
