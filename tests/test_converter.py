@@ -25,18 +25,17 @@ def test_deterministic_conversion():
             print(f"⚠️  Skipping {input_file} - file not found")
             continue
 
-        # Convert file
+        # Convert file using direct Python import
         result = subprocess.run([
-            "uv", "run", "python", "pages_converter.py",
-            "--input", input_file,
-            "--output", output_file
+            "uv", "run", "python", "-c",
+            f"from pages_converter import PagesConverter; c = PagesConverter(); c.convert_file('{input_file}', '{output_file}')"
         ], capture_output=True, text=True)
 
         if result.returncode == 0:
             # Get hash for verification
             hash_result = subprocess.run([
-                "uv", "run", "python", "pages_converter.py",
-                "--verify", output_file
+                "uv", "run", "python", "-c",
+                f"from pages_converter import PagesConverter; c = PagesConverter(); print(f'File hash: {{c.get_file_hash(\"{output_file}\")}}')"
             ], capture_output=True, text=True)
 
             if hash_result.returncode == 0:
@@ -70,8 +69,8 @@ def test_deterministic_conversion():
 
         if result.returncode == 0:
             hash_result = subprocess.run([
-                "uv", "run", "python", "pages_converter.py",
-                "--verify", output_file
+                "uv", "run", "python", "-c",
+                f"from pages_converter import PagesConverter; c = PagesConverter(); print(f'File hash: {{c.get_file_hash(\"{output_file}\")}}')"
             ], capture_output=True, text=True)
 
             if hash_result.returncode == 0:
@@ -110,9 +109,8 @@ def test_batch_conversion():
 
         # Run batch conversion
         result = subprocess.run([
-            "uv", "run", "python", "pages_converter.py",
-            "--batch-input", str(temp_path),
-            "--batch-output", str(output_dir)
+            "uv", "run", "python", "-c",
+            f"from pages_converter import PagesConverter; c = PagesConverter(); print(c.batch_convert('{temp_path}', '{output_dir}'))"
         ], capture_output=True, text=True)
 
         if result.returncode == 0:

@@ -338,12 +338,23 @@ def main():
     parser.add_argument('--batch-output', help='Output directory for batch conversion')
     parser.add_argument('--verify', help='Verify output file hash')
 
+def main():
+    """Main entry point for the CLI"""
+    parser = argparse.ArgumentParser(
+        description="Convert files to Pages-compatible .pages format"
+    )
+    parser.add_argument('--input', '-i', help='Input file to convert')
+    parser.add_argument('--output', '-o', help='Output .pages file')
+    parser.add_argument('--batch-input', help='Input directory for batch conversion')
+    parser.add_argument('--batch-output', help='Output directory for batch conversion')
+    parser.add_argument('--verify', help='Verify output file hash')
+
     args = parser.parse_args()
 
     converter = PagesConverter()
 
     if args.verify:
-        # Verify deterministic output
+        # Verify file integrity
         if os.path.exists(args.verify):
             hash_value = converter.get_file_hash(args.verify)
             print(f"File hash: {hash_value}")
@@ -369,9 +380,8 @@ def main():
     else:
         parser.print_help()
         print("\nExamples:")
-        print("  uv run python pages_converter.py --input examples/sample.md --output target/pages/converted.pages")
-        print("  uv run python pages_converter.py --input examples/sample.txt --output target/pages/text.pages")
-        print("  uv run python pages_converter.py --batch-input examples --batch-output target/pages")
+        print("  pages-converter --input examples/sample.md --output output.pages")
+        print("  pages-converter --batch-input examples --batch-output ./pages")
 
 
 if __name__ == "__main__":
